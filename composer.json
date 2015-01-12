@@ -1,0 +1,25 @@
+{
+    "name": "arsoniwebstudio/datatable-serverside",
+    "description": "Laravel module that allows us to manage the server side using chumper datatables.",
+    "authors": [
+        {
+            "name": "Arsoñí Web Studio",
+            "email": "webstudio@arsoni.es"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "chumper/datatable": "2.*",
+    },
+    "autoload": {
+        "classmap": [
+        	"src/lib",
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Arsoni\\Dt\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
