@@ -6,7 +6,7 @@
  * Date: 18/11/14
  * Time: 0:51
  */
-abstract class Dt
+abstract class Dt extends Eloquent
 {
 
     public static $connection = null;
