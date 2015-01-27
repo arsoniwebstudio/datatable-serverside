@@ -9,8 +9,6 @@
 abstract class Dt extends Eloquent
 {
 
-    public static $connection = null;
-
     public static function getTableName()
     {
     }
