@@ -7,15 +7,15 @@ abstract class DtController extends Controller {
   abstract protected function getModel();
   abstract protected function setDTColums($dataTable);
   
-  protected function getDT()
+  protected function getDT($timestamps = true)
   {
   	$model = $this->getModel();
-  	return $model::datatable();
+  	return $model::datatable($timestamps = true);
   }
   
-  public function datatable()
+  public function datatable($timestamps = true)
   {
-  	$dataTable = $this -> getDT();
+  	$dataTable = $this -> getDT($timestamps = true);
   	$dataTable = $this -> setDTColums($dataTable);
   	return $dataTable->make();
   }
