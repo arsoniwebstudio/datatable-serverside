@@ -10,12 +10,12 @@ abstract class DtController extends Controller {
   protected function getDT($timestamps = true)
   {
   	$model = $this->getModel();
-  	return $model::datatable($timestamps = true);
+  	return $model::datatable($timestamps);
   }
   
   public function datatable($timestamps = true)
   {
-  	$dataTable = $this -> getDT($timestamps = true);
+  	$dataTable = $this -> getDT($timestamps);
   	$dataTable = $this -> setDTColums($dataTable);
   	return $dataTable->make();
   }
