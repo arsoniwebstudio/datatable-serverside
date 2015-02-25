@@ -22,33 +22,38 @@ abstract class Dt extends Eloquent
         return get_called_class();
     }
 
-    public static function getDTQuery($trash)
+    public static function getDTQuery($trash, $timestamps = true)
     {
         $conn = DB::getName();
         if(!empty(static::$connection))
             $conn = static::$connection;
 
         $query = null;
-        if(isset($trash['delete']) && (int)$trash['delete']==1)
-        {
-            if(isset($trash['active']) && (int)$trash['active']==1)
+        
+        if($timestamps){
+            if(isset($trash['delete']) && (int)$trash['delete']==1)
             {
-                $query = DB::connection($conn)->table(static::getTableName());
+                if(isset($trash['active']) && (int)$trash['active']==1)
+                {
+                    $query = DB::connection($conn)->table(static::getTableName());
+                }else{
+                    $query = DB::connection($conn)->table(static::getTableName())->whereNotNull(static::getTableName() . '.deleted_at');
+                }
             }else{
-
-                $query = DB::connection($conn)->table(static::getTableName())->whereNotNull(static::getTableName() . '.deleted_at');
+                $query = DB::connection($conn)->table(static::getTableName())->whereNull(static::getTableName() . '.deleted_at');
             }
         }else{
-            $query = DB::connection($conn)->table(static::getTableName())->whereNull(static::getTableName() . '.deleted_at');
+            $query = DB::connection($conn)->table(static::getTableName());
         }
+        
         return $query;
     }
 
-    public static function datatable()
+    public static function datatable($timestamps = true)
     {
         $filters = Input::get('filters');
         $model = static::getClass();
-        $query = static::getDTquery(Input::get('trash'));
+        $query = static::getDTquery(Input::get('trash'), $timestamps);
         $query = static:: filterDTQuery($filters, $query, $model);
         $query = static:: selectDTFields($query);
 
